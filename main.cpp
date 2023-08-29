@@ -7,11 +7,13 @@ using namespace std;
 // eg. cout << "Hello, World!" << endl; is valid
 
 class CharacterOfTheGame {
+    private:
+        int maxHealth;
+        int currentHealth;
+
     public:
         std::string name;
         static std::string type;
-        int maxHealth;
-        int currentHealth;
         int damage;
         bool isAlive;
         // Constructor
@@ -20,22 +22,31 @@ class CharacterOfTheGame {
         void takeDamage(int);
         void healCharacter(int);
         static void changeTypeOfCharacter(std::string);
+        int getHealth();
+    // protected can be used in this class and all the subclasses
+    // protected:
 };
 // inheritance
 class PlayerCharacter: public CharacterOfTheGame {
     public:
+        static std::string type;
         int level;
+        int defence;
+        void takeDamage(int);
         PlayerCharacter(std::string, int, int, int, int);
-
+        // method overwriting / loading
 };
 
 PlayerCharacter::PlayerCharacter(std::string _name, int _maxHealth, int _currentHealth, int _damage, int _level)
 : CharacterOfTheGame(_name, _maxHealth, _currentHealth, _damage) {
     level = _level;
+    defence = 0;
 }
 // type is same for every instance, if changed changes same in every instance
 std::string CharacterOfTheGame::type = "Non player character";
 
+// new static type in Player class
+std::string PlayerCharacter::type = "Player";
 
 CharacterOfTheGame::CharacterOfTheGame(std::string _name, int _maxHealth, int _currentHealth, int _damage) {
     name = _name;
@@ -44,8 +55,6 @@ CharacterOfTheGame::CharacterOfTheGame(std::string _name, int _maxHealth, int _c
     damage = _damage;
     isAlive = true;
 }
-
-
 void CharacterOfTheGame::takeDamage(int amount) {
     currentHealth -= amount;
     if (currentHealth <= 0) {
@@ -53,7 +62,19 @@ void CharacterOfTheGame::takeDamage(int amount) {
         isAlive = false;
     }
 }
+int CharacterOfTheGame::getHealth() {
+    return currentHealth;
+}
+void PlayerCharacter::takeDamage(int amount) {
+    int currentHealth = getHealth();
+    currentHealth -= (amount - defence);
+    if (currentHealth <= 0) {
+        currentHealth = 0;
+        isAlive = false;
+    }
+}
 void CharacterOfTheGame::healCharacter(int amount) {
+    int currentHealth = getHealth();
     currentHealth += amount;
     if (currentHealth >= maxHealth) {
         currentHealth = maxHealth;
@@ -71,14 +92,12 @@ void attackCharacter (CharacterOfTheGame *characterPointer1, CharacterOfTheGame 
     characterPointer2-> takeDamage(damageTaken);
 }
 
-
-
 int main() {
     CharacterOfTheGame character = CharacterOfTheGame("Matias", 100, 100, 10);
-    CharacterOfTheGame character2 = CharacterOfTheGame("Enzio", 100, 100, 20);
-    attackCharacter(&character2, &character);
+    PlayerCharacter player = PlayerCharacter("Player", 100, 100, 20, 1);
 
-    std::cout << character.currentHealth << std::endl;
-    std::cout << character.isAlive << std::endl;
-
+    character.takeDamage(10);
+    player.takeDamage(5);
+    std::cout << character.type << std::endl;
+    std::cout << player.type << std::endl;
 }
