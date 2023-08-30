@@ -2,14 +2,13 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-
 class Character {
     private:
         std::string name;
+        int damage;
+    protected:
         int health;
         int maxHealth;
-        int damage;
-
     public:  
         Character(std::string, int, int, int);
         void takeDamage(int);
