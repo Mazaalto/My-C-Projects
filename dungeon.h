@@ -8,6 +8,5 @@ class Dungeon {
         int columns = 3;
         room rooms[3][3];
         void setUpTheDungeon();
-
 };
 #endif

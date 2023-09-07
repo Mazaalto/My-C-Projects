@@ -15,5 +15,9 @@ class Game {
         void manageMovementActions();
         void printActions(std::vector<std::string>);
         void initRooms();
+        void manageEnemyActions();
+        void engageInCombat();
+        void handleItemActions();
+        void buildFurniture();
 };
 #endif

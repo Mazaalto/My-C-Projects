@@ -91,11 +91,8 @@ void attackCharacter (CharacterOfTheGame *characterPointer1, CharacterOfTheGame 
     int damageTaken = characterPointer1 -> damage;
     characterPointer2-> takeDamage(damageTaken);
 }
-
+/*
 int main() {
-    
-    
-    /*
     CharacterOfTheGame character = CharacterOfTheGame("Matias", 100, 100, 10);
     PlayerCharacter player = PlayerCharacter("Player", 100, 100, 20, 1);
 
@@ -104,4 +101,3 @@ int main() {
     std::cout << character.type << std::endl;
     std::cout << player.type << std::endl;
     */
-}

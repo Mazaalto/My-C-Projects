@@ -16,3 +16,7 @@ void Player::runBack(){
     room * temp = current;
     previous = temp;   
 }
+void Player::pickUpItem(item item) {
+  damage += item.damage;
+  heal(item.health);
+}

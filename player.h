@@ -11,6 +11,7 @@ class Player: public Character {
         Player(std::string, int, int, int);
         void drinkCaffeine(int);
         void enterRoom(room *);
+        void pickUpItem(item);
         void runBack();
 };
 #endif
